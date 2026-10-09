@@ -1,0 +1,8 @@
+[
+  {
+    "label": "Debug Current Exercise",
+    "adapter": "Java",
+    "request": "launch",
+    "mainClass": "$ZED_STEM",
+  },
+]
