@@ -1,20 +1,21 @@
-void main(){
-    String word = IO.readln("Enter the word: ");
-    String Reverse = "";
+void main() {
+    while (true) {
+        String word = IO.readln("Enter a word (or type quit to exit): ");
 
-    for(int i = word.length()-1; i>=0; i-- ){
-        Reverse += word.charAt(i);
+        if (word.equalsIgnoreCase("quit")) {
+            break;
+        }
 
+        String reverse = "";
+        for (int i = word.length() - 1; i >= 0; i--) {
+            reverse += word.charAt(i);
+        }
+
+        if (reverse.equals(word)) {
+            IO.println("This is a palindrome");
+        } else {
+            IO.println("This is not a palindrome");
+        }
+        IO.println(word + " " + reverse);
     }
-
-    if (Reverse == word){
-        IO.println("This is a palindrome");
-        IO.println(word + " "+ Reverse);
-    } else{
-        IO.println("This is not a palindrome");
-        IO.println(word + " "+ Reverse);
-
-    }
-
-
 }
