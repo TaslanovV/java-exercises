@@ -1,11 +1,13 @@
 import module java.desktop;
+double first;
+String operator = "";
 
 void style(JButton b, Color bg) {
     b.setFont(new Font("SansSerif", Font.BOLD, 24));
     b.setBackground(bg);
     b.setForeground(Color.WHITE);
-    b.setOpaque(true);          // needed on Mac for colours to show
-    b.setBorderPainted(false);  // needed on Mac for colours to show
+    b.setOpaque(true);
+    b.setBorderPainted(false);
 }
 
 void addDigit(String digit, JTextField display, JPanel buttons) {
@@ -14,6 +16,18 @@ void addDigit(String digit, JTextField display, JPanel buttons) {
     b.addActionListener(e -> display.setText(display.getText() + digit));
     buttons.add(b);
 }
+
+void addOperator(String symbol, JTextField display, JPanel buttons) {
+    JButton b = new JButton(symbol);
+    style(b, new Color(255, 149, 0));   // orange
+    b.addActionListener(e -> {
+        first = Double.parseDouble(display.getText());
+        operator = symbol;
+        display.setText("");
+    });
+    buttons.add(b);
+}
+
 
 void main() {
     JFrame frame = new JFrame("Calculator");
@@ -31,7 +45,7 @@ void main() {
     frame.add(display, BorderLayout.NORTH);
 
     // Button grid
-    JPanel buttons = new JPanel(new GridLayout(4, 3, 5, 5));
+    JPanel buttons = new JPanel(new GridLayout(4, 4, 5, 5));
     buttons.setBackground(Color.BLACK);
     buttons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
@@ -55,4 +69,16 @@ void main() {
 
     frame.add(buttons, BorderLayout.CENTER);
     frame.setVisible(true);
+
+    JButton equals = new JButton("=");
+    style(equals, new Color(255, 149, 0));
+    equals.addActionListener(e -> {
+        double second = Double.parseDouble(display.getText());
+        double result = switch (operator) {
+            case "+" -> first + second;
+            default -> 0;
+        };
+        display.setText(String.valueOf(result));
+    });
+    buttons.add(equals);
 }
